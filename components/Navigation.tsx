@@ -10,6 +10,7 @@ export default function Navigation() {
   const { t, i18n } = useTranslation();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -24,9 +25,25 @@ export default function Navigation() {
     }
   }, [i18n]);
 
+  useEffect(() => {
+    // Prevent body scroll when menu is open
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     localStorage.setItem('language', lng);
+  };
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
   };
 
   const navLinks = [
@@ -45,8 +62,34 @@ export default function Navigation() {
     <nav className="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-gold/20">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
+          {/* Hamburger Button - Mobile & Tablet */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <div className="w-6 h-5 flex flex-col justify-between">
+              <span
+                className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
+                  isMenuOpen ? 'rotate-45 translate-y-2' : ''
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
+                  isMenuOpen ? 'opacity-0' : 'opacity-100'
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
+                  isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                }`}
+              />
+            </div>
+          </button>
+
+          {/* Desktop Navigation */}
           <div className="flex-1 flex items-center justify-center">
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden lg:flex space-x-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -63,6 +106,7 @@ export default function Navigation() {
             </div>
           </div>
 
+          {/* Language Switcher */}
           <div className="flex space-x-2">
             <button
               onClick={() => changeLanguage('en')}
@@ -86,23 +130,40 @@ export default function Navigation() {
             </button>
           </div>
         </div>
+      </div>
 
-        <div className="md:hidden pb-3">
-          <div className="grid grid-cols-4 gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-montserrat text-xs uppercase tracking-wider text-center py-2 transition-all duration-300 hover:text-gold ${
-                  pathname === link.href
-                    ? 'text-gold font-semibold border-b-2 border-gold'
-                    : 'text-dark'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+      {/* Mobile & Tablet Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+          isMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+        style={{ top: '64px' }}
+      />
+
+      {/* Mobile & Tablet Sliding Menu */}
+      <div
+        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out lg:hidden ${
+          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex flex-col p-6 space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={handleLinkClick}
+              className={`font-montserrat text-base uppercase tracking-wider py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gold/10 hover:text-gold ${
+                pathname === link.href
+                  ? 'text-gold font-semibold bg-gold/10 border-l-4 border-gold'
+                  : 'text-dark'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>

@@ -8,14 +8,21 @@ async function getWelcomeData(locale: string) {
     const data = await getWelcome(locale);
     return data;
   } catch (error) {
-    console.error('Error fetching welcome data:', error);
+    // console.log('Error fetching welcome data:', error);
     return null;
   }
 }
 
 export default async function Home() {
   const dataEn = await getWelcomeData('en');
-  const dataEs = await getWelcomeData('es');
+  let dataEs = await getWelcomeData('es');
 
-  return <WelcomePage dataEn={dataEn} dataEs={dataEs} />;
+  if (!dataEs) dataEs = dataEn;
+
+  return (
+    <WelcomePage
+      dataEn={dataEn}
+      dataEs={dataEs}
+    />
+  );
 }

@@ -6,8 +6,8 @@ import Image from 'next/image';
 import '../../lib/i18n';
 
 interface GalleryPageProps {
-  dataEn: any;
-  dataEs: any;
+  dataEn?: any;
+  dataEs?: any;
 }
 
 export default function GalleryPage({ dataEn, dataEs }: GalleryPageProps) {
@@ -22,8 +22,10 @@ export default function GalleryPage({ dataEn, dataEs }: GalleryPageProps) {
     return <div className="max-w-7xl mx-auto px-8 pb-20" />;
   }
 
-  const content = i18n.language === 'es' ? dataEs?.data : dataEn?.data;
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:1337';
+  const content = i18n.language === 'es' ? dataEs : dataEn;
+  const API_BASE =
+    process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') ||
+    'http://localhost:1337';
 
   return (
     <div className="max-w-7xl mx-auto px-8 pb-20">
@@ -38,7 +40,9 @@ export default function GalleryPage({ dataEn, dataEs }: GalleryPageProps) {
 
       {content?.story && (
         <div className="bg-white p-14 rounded-3xl my-12 max-w-4xl mx-auto leading-8 font-cormorant text-xl text-dark shadow-lg border border-gold/10 relative">
-          <div className="text-8xl text-gold opacity-30 leading-none mb-8 font-playfair">"</div>
+          <div className="text-8xl text-gold opacity-30 leading-none mb-8 font-playfair">
+            "
+          </div>
           <div dangerouslySetInnerHTML={{ __html: content.story }} />
         </div>
       )}

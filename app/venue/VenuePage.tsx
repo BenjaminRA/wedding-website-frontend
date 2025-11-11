@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import '../../lib/i18n';
 
 interface VenuePageProps {
-  dataEn: any;
-  dataEs: any;
+  dataEn?: any;
+  dataEs?: any;
 }
 
 export default function VenuePage({ dataEn, dataEs }: VenuePageProps) {
@@ -21,7 +21,7 @@ export default function VenuePage({ dataEn, dataEs }: VenuePageProps) {
     return <div className="max-w-4xl mx-auto px-8 pb-20" />;
   }
 
-  const content = i18n.language === 'es' ? dataEs?.data : dataEn?.data;
+  const content = i18n.language === 'es' ? dataEs : dataEn;
 
   return (
     <div className="max-w-4xl mx-auto px-8 pb-20">

@@ -66,4 +66,9 @@ export const updateGuestRSVP = async (
   return response.data;
 };
 
+export const submitRSVP = async (data: any) => {
+  const response = await api.post('/rsvps', { data });
+  return response.data;
+};
+
 export default api;

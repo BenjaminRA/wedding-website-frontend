@@ -8,14 +8,21 @@ async function getDressCodeData(locale: string) {
     const data = await getDressCode(locale);
     return data;
   } catch (error) {
-    console.error('Error fetching dress code data:', error);
+    // console.error('Error fetching dress code data:', error);
     return null;
   }
 }
 
 export default async function DressCode() {
   const dataEn = await getDressCodeData('en');
-  const dataEs = await getDressCodeData('es');
+  let dataEs = await getDressCodeData('es');
 
-  return <DressCodePage dataEn={dataEn} dataEs={dataEs} />;
+  if (!dataEs) dataEs = dataEn;
+
+  return (
+    <DressCodePage
+      dataEn={dataEn}
+      dataEs={dataEs}
+    />
+  );
 }

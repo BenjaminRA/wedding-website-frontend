@@ -8,14 +8,21 @@ async function getScheduleData(locale: string) {
     const data = await getSchedule(locale);
     return data;
   } catch (error) {
-    console.error('Error fetching schedule data:', error);
+    // console.error('Error fetching schedule data:', error);
     return null;
   }
 }
 
 export default async function Schedule() {
   const dataEn = await getScheduleData('en');
-  const dataEs = await getScheduleData('es');
+  let dataEs = await getScheduleData('es');
 
-  return <SchedulePage dataEn={dataEn} dataEs={dataEs} />;
+  if (!dataEs) dataEs = dataEn;
+
+  return (
+    <SchedulePage
+      dataEn={dataEn}
+      dataEs={dataEs}
+    />
+  );
 }
