@@ -10,6 +10,13 @@ const api = axios.create({
   },
 });
 
+export const getUploadsUrl = (assetUrl: string) => {
+  if (assetUrl.startsWith('/')) {
+    return `${API_URL.replace('/api', '')}${assetUrl}`;
+  }
+  return assetUrl;
+};
+
 export const getWelcome = async (locale: string = 'en') => {
   const response = await api.get(`/welcome?locale=${locale}&populate=*`);
   return response.data;

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Countdown from '@/components/Countdown';
 import '../lib/i18n';
+import { getUploadsUrl } from '@/lib/api';
 
 interface WelcomePageProps {
   dataEn?: any;
@@ -26,12 +27,6 @@ export default function WelcomePage({ dataEn, dataEs }: WelcomePageProps) {
 
   const content = i18n.language === 'es' ? dataEs : dataEn;
 
-  console.log(content);
-
-  const API_BASE =
-    process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') ||
-    'http://localhost:1337';
-
   const defaultDate = new Date(
     Date.now() + 180 * 24 * 60 * 60 * 1000
   ).toISOString();
@@ -42,9 +37,9 @@ export default function WelcomePage({ dataEn, dataEs }: WelcomePageProps) {
         {content?.heroImage && (
           <>
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-30"
+              className="absolute inset-0 bg-cover bg-center opacity-70"
               style={{
-                backgroundImage: `${content.heroImage.url}`,
+                backgroundImage: `url(${getUploadsUrl(content.heroImage.url)})`,
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-cream/70 to-white/90" />
