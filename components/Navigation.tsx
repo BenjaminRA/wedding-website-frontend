@@ -59,7 +59,7 @@ export default function Navigation() {
   if (!mounted) return null;
 
   return (
-    <nav className="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-gold/20">
+    <nav className="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-forest-green/15">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Hamburger Button - Mobile & Tablet */}
@@ -102,9 +102,9 @@ export default function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`font-montserrat text-sm uppercase tracking-wider transition-all duration-300 hover:text-gold ${
+                  className={`font-montserrat text-sm uppercase tracking-wider transition-all duration-300 hover:text-forest-green ${
                     pathname === link.href
-                      ? 'text-gold font-semibold border-b-2 border-gold'
+                      ? 'text-forest-green font-semibold border-b-2 border-forest-green'
                       : 'text-dark'
                   }`}
                 >
@@ -120,8 +120,8 @@ export default function Navigation() {
               onClick={() => changeLanguage('en')}
               className={`px-3 py-1 rounded font-montserrat text-sm transition-all ${
                 i18n.language === 'en'
-                  ? 'bg-gold text-white'
-                  : 'bg-gray-200 text-dark hover:bg-gray-300'
+                  ? 'bg-forest-green text-white'
+                  : 'bg-mist text-dark hover:bg-sage/30'
               }`}
             >
               EN
@@ -130,8 +130,8 @@ export default function Navigation() {
               onClick={() => changeLanguage('es')}
               className={`px-3 py-1 rounded font-montserrat text-sm transition-all ${
                 i18n.language === 'es'
-                  ? 'bg-gold text-white'
-                  : 'bg-gray-200 text-dark hover:bg-gray-300'
+                  ? 'bg-forest-green text-white'
+                  : 'bg-mist text-dark hover:bg-sage/30'
               }`}
             >
               ES
@@ -163,9 +163,9 @@ export default function Navigation() {
               key={link.href}
               href={link.href}
               onClick={handleLinkClick}
-              className={`font-montserrat text-base uppercase tracking-wider py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gold/10 hover:text-gold ${
+              className={`font-montserrat text-base uppercase tracking-wider py-3 px-4 rounded-lg transition-all duration-300 hover:bg-mist hover:text-forest-green ${
                 pathname === link.href
-                  ? 'text-gold font-semibold bg-gold/10 border-l-4 border-gold'
+                  ? 'text-forest-green font-semibold bg-mist border-l-4 border-forest-green'
                   : 'text-dark'
               }`}
             >

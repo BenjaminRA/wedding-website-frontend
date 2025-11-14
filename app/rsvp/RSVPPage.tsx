@@ -26,7 +26,11 @@ export default function RSVPPage() {
     setMessage('');
 
     try {
-      const response = await findGuestWithPassword(firstName, lastName, password);
+      const response = await findGuestWithPassword(
+        firstName,
+        lastName,
+        password
+      );
       if (response.data) {
         setGuest(response.data);
         setAttending(response.data.attending || false);
@@ -82,9 +86,12 @@ export default function RSVPPage() {
         </p>
       </div>
 
-      <div className="bg-white p-12 rounded-3xl shadow-lg border border-gold/10">
+      <div className="bg-white p-12 rounded-3xl shadow-lg border border-fobg-forest-green/10">
         {!guest ? (
-          <form onSubmit={handleFindGuest} className="space-y-6">
+          <form
+            onSubmit={handleFindGuest}
+            className="space-y-6"
+          >
             <div>
               <label className="block font-montserrat text-sm uppercase tracking-wider text-dark mb-2 font-semibold">
                 {t('rsvp.firstName')}
@@ -94,7 +101,7 @@ export default function RSVPPage() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent font-cormorant text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fobg-forest-green focus:border-transparent font-cormorant text-lg"
               />
             </div>
 
@@ -107,7 +114,7 @@ export default function RSVPPage() {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent font-cormorant text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fobg-forest-green focus:border-transparent font-cormorant text-lg"
               />
             </div>
 
@@ -120,7 +127,7 @@ export default function RSVPPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent font-cormorant text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fobg-forest-green focus:border-transparent font-cormorant text-lg"
               />
             </div>
 
@@ -132,13 +139,16 @@ export default function RSVPPage() {
 
             <button
               type="submit"
-              className="w-full bg-gold text-white font-montserrat px-8 py-4 rounded-lg hover:bg-gold/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
+              className="w-full bg-forest-green text-white font-montserrat px-8 py-4 rounded-lg hover:bg-forest-green/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
             >
               {t('rsvp.submit')}
             </button>
           </form>
         ) : (
-          <form onSubmit={handleSubmitRSVP} className="space-y-6">
+          <form
+            onSubmit={handleSubmitRSVP}
+            className="space-y-6"
+          >
             <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg font-cormorant text-lg text-center">
               {t('rsvp.guestFound')}: {guest.firstName} {guest.lastName}
             </div>
@@ -153,7 +163,7 @@ export default function RSVPPage() {
                   onClick={() => setAttending(true)}
                   className={`flex-1 px-6 py-4 rounded-lg font-montserrat uppercase tracking-wider text-sm font-semibold transition-all ${
                     attending
-                      ? 'bg-gold text-white shadow-lg'
+                      ? 'bg-forest-green text-white shadow-lg'
                       : 'bg-gray-100 text-dark hover:bg-gray-200'
                   }`}
                 >
@@ -164,7 +174,7 @@ export default function RSVPPage() {
                   onClick={() => setAttending(false)}
                   className={`flex-1 px-6 py-4 rounded-lg font-montserrat uppercase tracking-wider text-sm font-semibold transition-all ${
                     !attending
-                      ? 'bg-gold text-white shadow-lg'
+                      ? 'bg-forest-green text-white shadow-lg'
                       : 'bg-gray-100 text-dark hover:bg-gray-200'
                   }`}
                 >
@@ -187,7 +197,7 @@ export default function RSVPPage() {
 
             <button
               type="submit"
-              className="w-full bg-gold text-white font-montserrat px-8 py-4 rounded-lg hover:bg-gold/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
+              className="w-full bg-forest-green text-white font-montserrat px-8 py-4 rounded-lg hover:bg-forest-green/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
             >
               {t('rsvp.confirmRSVP')}
             </button>

@@ -10,7 +10,22 @@
 
 body {
   font-family: var(--font-montserrat);
-  background-color: #FAF7F2;
+  background-color: #f4f6f3;
+  background-image: radial-gradient(
+      circle at 15% 30%,
+      rgba(107, 128, 104, 0.02) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 85% 70%,
+      rgba(155, 170, 151, 0.03) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(122, 143, 119, 0.02) 0%,
+      transparent 35%
+    );
 }
 
 .font-playfair {
@@ -23,4 +38,15 @@ body {
 
 .font-montserrat {
   font-family: var(--font-montserrat);
+}
+
+/* Subtle leaf/branch decoration */
+.forest-accent {
+  position: relative;
+}
+
+.forest-accent::before {
+  content: '';
+  opacity: 0.06;
+  color: #6b8068;
 }
