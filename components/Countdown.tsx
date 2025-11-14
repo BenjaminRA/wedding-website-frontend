@@ -32,7 +32,9 @@ export default function Countdown({ weddingDate }: CountdownProps) {
       if (distance > 0) {
         setCountdown({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
@@ -44,48 +46,47 @@ export default function Countdown({ weddingDate }: CountdownProps) {
     return () => clearInterval(interval);
   }, [weddingDate]);
 
+  const renderCountdownUnit = (value: number, label: string) => (
+    <>
+      {/* Desktop Countdown */}
+      <div className="hidden md:block bg-white border-2 border-gold rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20">
+        <div className="font-playfair text-5xl md:text-6xl font-bold text-gold leading-none mb-2">
+          {value}
+        </div>
+        <div className="font-montserrat text-sm uppercase tracking-widest text-gray-600 font-medium">
+          {label}
+        </div>
+      </div>
+
+      {/* Mobile Countdown */}
+      <div className="md:hidden flex flex-col items-center gap-2">
+        <div className="bg-white border-2 border-gold rounded-2xl p-2 transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20 w-[50px]">
+          <div className="font-playfair text-2xl font-bold text-gold leading-none mb-2">
+            {value}
+          </div>
+        </div>
+        <div className="font-montserrat text-xs uppercase tracking-widest text-gray-600 font-medium">
+          {label[0]}
+          {label[0]}
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <div className="mt-16 p-12 bg-white/80 backdrop-blur-md rounded-3xl border border-gold/20 shadow-2xl">
-      <h2 className="font-cormorant text-3xl md:text-4xl mb-10 text-dark font-semibold italic tracking-wide">
+      <h2 className="font-cormorant text-xl md:text-4xl mb-10 text-dark font-semibold italic tracking-wide">
         {t('welcome.countdown')}
       </h2>
 
-      <div className="flex flex-wrap gap-6 justify-center">
-        <div className="bg-white border-2 border-gold rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20">
-          <div className="font-playfair text-5xl md:text-6xl font-bold text-gold leading-none mb-2">
-            {countdown.days}
-          </div>
-          <div className="font-montserrat text-sm uppercase tracking-widest text-gray-600 font-medium">
-            {t('welcome.days')}
-          </div>
-        </div>
+      <div className="grid grid-cols-4 gap-4 md:flex md:flex-wrap md:gap-6 justify-center">
+        {renderCountdownUnit(countdown.days, t('welcome.days'))}
 
-        <div className="bg-white border-2 border-gold rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20">
-          <div className="font-playfair text-5xl md:text-6xl font-bold text-gold leading-none mb-2">
-            {countdown.hours}
-          </div>
-          <div className="font-montserrat text-sm uppercase tracking-widest text-gray-600 font-medium">
-            {t('welcome.hours')}
-          </div>
-        </div>
+        {renderCountdownUnit(countdown.hours, t('welcome.hours'))}
 
-        <div className="bg-white border-2 border-gold rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20">
-          <div className="font-playfair text-5xl md:text-6xl font-bold text-gold leading-none mb-2">
-            {countdown.minutes}
-          </div>
-          <div className="font-montserrat text-sm uppercase tracking-widest text-gray-600 font-medium">
-            {t('welcome.minutes')}
-          </div>
-        </div>
+        {renderCountdownUnit(countdown.minutes, t('welcome.minutes'))}
 
-        <div className="bg-white border-2 border-gold rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20">
-          <div className="font-playfair text-5xl md:text-6xl font-bold text-gold leading-none mb-2">
-            {countdown.seconds}
-          </div>
-          <div className="font-montserrat text-sm uppercase tracking-widest text-gray-600 font-medium">
-            {t('welcome.seconds')}
-          </div>
-        </div>
+        {renderCountdownUnit(countdown.seconds, t('welcome.seconds'))}
       </div>
     </div>
   );

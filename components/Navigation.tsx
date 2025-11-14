@@ -65,7 +65,7 @@ export default function Navigation() {
           {/* Hamburger Button - Mobile & Tablet */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+            className="xl:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
             aria-label="Toggle menu"
           >
             <div className="w-6 h-5 flex flex-col justify-between">
@@ -87,9 +87,17 @@ export default function Navigation() {
             </div>
           </button>
 
+          <div className="flex left-1/2 -translate-x-1/2 justify-center absolute xl:left-0 xl:w-auto xl:relative z-0">
+            <img
+              className="w-10"
+              src="/assets/wedding-logo.png"
+              alt="Wedding Logo"
+            />
+          </div>
+
           {/* Desktop Navigation */}
           <div className="flex-1 flex items-center justify-center">
-            <div className="hidden lg:flex space-x-8">
+            <div className="hidden xl:flex space-x-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -134,7 +142,7 @@ export default function Navigation() {
 
       {/* Mobile & Tablet Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 xl:hidden ${
           isMenuOpen
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
@@ -145,7 +153,7 @@ export default function Navigation() {
 
       {/* Mobile & Tablet Sliding Menu */}
       <div
-        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out lg:hidden ${
+        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out xl:hidden ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

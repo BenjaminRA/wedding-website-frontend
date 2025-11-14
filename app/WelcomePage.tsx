@@ -33,7 +33,7 @@ export default function WelcomePage({ dataEn, dataEs }: WelcomePageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream to-white">
-      <div className="min-h-screen flex items-center justify-center overflow-hidden relative">
+      <div className="min-h-screen flex items-center justify-center overflow-hidden relative pb-10">
         {content?.heroImage && (
           <>
             <div
@@ -47,7 +47,14 @@ export default function WelcomePage({ dataEn, dataEs }: WelcomePageProps) {
         )}
 
         <div className="relative z-10 text-center px-8 max-w-5xl">
-          <div className="text-6xl text-gold opacity-60 my-6 md:mb-6">❦</div>
+          {/* <div className="text-6xl text-gold opacity-60 my-6 md:mb-6">❦</div> */}
+          {/* <div className="my-6 md:mb-6 flex justify-center opacity-95">
+            <img
+              className="w-52"
+              src="/assets/wedding-logo.png"
+              alt=""
+            />
+          </div> */}
 
           <h1 className="font-playfair text-6xl md:text-7xl lg:text-8xl font-bold text-dark mb-6 tracking-wide leading-tight">
             {content?.title || t('welcome.title')}
@@ -62,9 +69,9 @@ export default function WelcomePage({ dataEn, dataEs }: WelcomePageProps) {
           )}
         </div>
 
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-4xl text-gold opacity-60 animate-bounce">
+        {/* <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-4xl text-gold opacity-60 animate-bounce">
           ↓
-        </div>
+        </div> */}
       </div>
     </div>
   );
