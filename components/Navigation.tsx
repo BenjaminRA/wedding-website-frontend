@@ -87,7 +87,7 @@ export default function Navigation() {
             </div>
           </button>
 
-          <div className="flex left-1/2 -translate-x-1/2 justify-center absolute xl:left-0 xl:w-auto xl:relative z-0">
+          <div className="flex left-1/2 -translate-x-1/2 justify-center absolute xl:translate-x-0 xl:left-0 xl:w-auto xl:relative z-0">
             <img
               className="w-10"
               src="/assets/wedding-logo.png"
