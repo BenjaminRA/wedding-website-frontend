@@ -59,90 +59,92 @@ export default function Navigation() {
   if (!mounted) return null;
 
   return (
-    <nav className="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-forest-green/15">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Hamburger Button - Mobile & Tablet */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="xl:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
-          >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <span
-                className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
-                  isMenuOpen ? 'rotate-45 translate-y-2' : ''
-                }`}
-              />
-              <span
-                className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
-                  isMenuOpen ? 'opacity-0' : 'opacity-100'
-                }`}
-              />
-              <span
-                className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
-                  isMenuOpen ? '-rotate-45 -translate-y-2' : ''
-                }`}
-              />
-            </div>
-          </button>
-
-          <div className="flex left-1/2 -translate-x-1/2 justify-center absolute xl:translate-x-0 xl:left-4 xl:w-auto xl:absolute z-0">
-            <img
-              className="w-10"
-              src="/assets/wedding-logo.png"
-              alt="Wedding Logo"
-            />
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="flex-1 flex items-center justify-center">
-            <div className="hidden xl:flex space-x-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`font-montserrat text-sm uppercase tracking-wider transition-all duration-300 hover:text-forest-green ${
-                    pathname === link.href
-                      ? 'text-forest-green font-semibold border-b-2 border-forest-green'
-                      : 'text-dark'
+    <>
+      <nav className="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b border-forest-green/15">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Hamburger Button - Mobile & Tablet */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="xl:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span
+                  className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
+                    isMenuOpen ? 'rotate-45 translate-y-2' : ''
                   }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+                />
+                <span
+                  className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
+                    isMenuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
+                <span
+                  className={`block h-0.5 w-full bg-dark transition-all duration-300 ${
+                    isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`}
+                />
+              </div>
+            </button>
 
-          {/* Language Switcher */}
-          <div className="flex space-x-2">
-            <button
-              onClick={() => changeLanguage('en')}
-              className={`px-3 py-1 rounded font-montserrat text-sm transition-all ${
-                i18n.language === 'en'
-                  ? 'bg-forest-green text-white'
-                  : 'bg-mist text-dark hover:bg-sage/30'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => changeLanguage('es')}
-              className={`px-3 py-1 rounded font-montserrat text-sm transition-all ${
-                i18n.language === 'es'
-                  ? 'bg-forest-green text-white'
-                  : 'bg-mist text-dark hover:bg-sage/30'
-              }`}
-            >
-              ES
-            </button>
+            <div className="flex left-1/2 -translate-x-1/2 justify-center absolute xl:translate-x-0 xl:left-4 xl:w-auto xl:absolute z-0">
+              <img
+                className="w-10"
+                src="/assets/wedding-logo.png"
+                alt="Wedding Logo"
+              />
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="flex-1 flex items-center justify-center">
+              <div className="hidden xl:flex space-x-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`font-montserrat text-sm uppercase tracking-wider transition-all duration-300 hover:text-forest-green ${
+                      pathname === link.href
+                        ? 'text-forest-green font-semibold border-b-2 border-forest-green'
+                        : 'text-dark'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Language Switcher */}
+            <div className="flex space-x-2">
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`px-3 py-1 rounded font-montserrat text-sm transition-all ${
+                  i18n.language === 'en'
+                    ? 'bg-forest-green text-white'
+                    : 'bg-mist text-dark hover:bg-sage/30'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => changeLanguage('es')}
+                className={`px-3 py-1 rounded font-montserrat text-sm transition-all ${
+                  i18n.language === 'es'
+                    ? 'bg-forest-green text-white'
+                    : 'bg-mist text-dark hover:bg-sage/30'
+                }`}
+              >
+                ES
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile & Tablet Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 xl:hidden ${
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 xl:hidden z-40 ${
           isMenuOpen
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
@@ -153,7 +155,7 @@ export default function Navigation() {
 
       {/* Mobile & Tablet Sliding Menu */}
       <div
-        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out xl:hidden ${
+        className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out xl:hidden z-40 ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -174,6 +176,6 @@ export default function Navigation() {
           ))}
         </div>
       </div>
-    </nav>
+    </>
   );
 }
