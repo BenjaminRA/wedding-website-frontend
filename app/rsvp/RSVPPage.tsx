@@ -2,8 +2,30 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { findGuestWithPassword, updateGuestRSVP } from '@/lib/api';
+import { findGuestWithPassword, submitRSVP } from '@/lib/api';
 import '../../lib/i18n';
+
+interface Guest {
+  id: number;
+  documentId: string;
+  firstName: string;
+  lastName: string;
+  type: string;
+  country: string;
+  rsvp: boolean;
+  attending: boolean | null;
+}
+
+interface GuestGroup {
+  id: number;
+  documentId: string;
+  groupName: string;
+  guests: Guest[];
+}
+
+interface GuestData extends Guest {
+  guest_group: GuestGroup;
+}
 
 export default function RSVPPage() {
   const { t } = useTranslation();
@@ -11,8 +33,10 @@ export default function RSVPPage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
-  const [guest, setGuest] = useState<any>(null);
-  const [attending, setAttending] = useState(false);
+  const [guest, setGuest] = useState<GuestData | null>(null);
+  const [guestAttendance, setGuestAttendance] = useState<
+    Record<number, boolean>
+  >({});
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -33,7 +57,14 @@ export default function RSVPPage() {
       );
       if (response.data) {
         setGuest(response.data);
-        setAttending(response.data.attending || false);
+        // Initialize attendance state for all guests in the group
+        const initialAttendance: Record<number, boolean> = {};
+        if (response.data.guest_group?.guests) {
+          response.data.guest_group.guests.forEach((g: Guest) => {
+            initialAttendance[g.id] = g.attending ?? false;
+          });
+        }
+        setGuestAttendance(initialAttendance);
       } else {
         setError(t('rsvp.notFound'));
       }
@@ -54,10 +85,15 @@ export default function RSVPPage() {
     if (!guest) return;
 
     try {
-      await updateGuestRSVP(guest.id, {
+      // Prepare the RSVP data with all guest information
+      const rsvpData = guest.guest_group.guests.map((g) => ({
+        id: g.id,
+        documentId: g.documentId,
         rsvp: true,
-        attending,
-      });
+        attending: guestAttendance[g.id] ?? false,
+      }));
+
+      await submitRSVP({ guests: rsvpData });
       setMessage(t('rsvp.success'));
       setTimeout(() => {
         setGuest(null);
@@ -65,6 +101,7 @@ export default function RSVPPage() {
         setLastName('');
         setPassword('');
         setMessage('');
+        setGuestAttendance({});
       }, 3000);
     } catch (err) {
       setError(t('rsvp.error'));
@@ -149,38 +186,74 @@ export default function RSVPPage() {
             onSubmit={handleSubmitRSVP}
             className="space-y-6"
           >
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg font-cormorant text-lg text-center">
+            {/* <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg font-cormorant text-lg text-center">
               {t('rsvp.guestFound')}: {guest.firstName} {guest.lastName}
-            </div>
+            </div> */}
 
-            <div>
+            {guest.guest_group?.groupName && (
+              <div className="text-center">
+                <p className="font-montserrat text-sm uppercase tracking-wider text-gray-600">
+                  Group:{' '}
+                  <span className="font-semibold text-dark">
+                    {guest.guest_group.groupName}
+                  </span>
+                </p>
+              </div>
+            )}
+
+            <div className="space-y-6">
               <label className="block font-montserrat text-sm uppercase tracking-wider text-dark mb-4 font-semibold">
                 {t('rsvp.willAttend')}
               </label>
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={() => setAttending(true)}
-                  className={`flex-1 px-6 py-4 rounded-lg font-montserrat uppercase tracking-wider text-sm font-semibold transition-all ${
-                    attending
-                      ? 'bg-forest-green text-white shadow-lg'
-                      : 'bg-gray-100 text-dark hover:bg-gray-200'
-                  }`}
-                >
-                  {t('rsvp.yes')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setAttending(false)}
-                  className={`flex-1 px-6 py-4 rounded-lg font-montserrat uppercase tracking-wider text-sm font-semibold transition-all ${
-                    !attending
-                      ? 'bg-forest-green text-white shadow-lg'
-                      : 'bg-gray-100 text-dark hover:bg-gray-200'
-                  }`}
-                >
-                  {t('rsvp.no')}
-                </button>
-              </div>
+
+              {guest.guest_group?.guests &&
+                guest.guest_group.guests.map((groupGuest) => (
+                  <div
+                    key={groupGuest.id}
+                    className="border border-gray-200 rounded-lg p-4 space-y-3"
+                  >
+                    <div className="font-cormorant text-lg font-semibold text-dark">
+                      {groupGuest.firstName} {groupGuest.lastName}
+                      <span className="ml-2 text-sm text-gray-500">
+                        ({groupGuest.type})
+                      </span>
+                    </div>
+                    <div className="flex gap-3">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setGuestAttendance((prev) => ({
+                            ...prev,
+                            [groupGuest.id]: true,
+                          }))
+                        }
+                        className={`flex-1 px-4 py-3 rounded-lg font-montserrat uppercase tracking-wider text-xs font-semibold transition-all ${
+                          guestAttendance[groupGuest.id]
+                            ? 'bg-forest-green text-white shadow-lg'
+                            : 'bg-gray-100 text-dark hover:bg-gray-200'
+                        }`}
+                      >
+                        {t('rsvp.yes')}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setGuestAttendance((prev) => ({
+                            ...prev,
+                            [groupGuest.id]: false,
+                          }))
+                        }
+                        className={`flex-1 px-4 py-3 rounded-lg font-montserrat uppercase tracking-wider text-xs font-semibold transition-all ${
+                          !guestAttendance[groupGuest.id]
+                            ? 'bg-forest-green text-white shadow-lg'
+                            : 'bg-gray-100 text-dark hover:bg-gray-200'
+                        }`}
+                      >
+                        {t('rsvp.no')}
+                      </button>
+                    </div>
+                  </div>
+                ))}
             </div>
 
             {message && (

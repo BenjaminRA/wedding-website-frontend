@@ -60,21 +60,21 @@ export const findGuestWithPassword = async (
   return response.data;
 };
 
-export const updateGuestRSVP = async (
-  guestId: number | string,
-  data: { rsvp: boolean; attending: boolean }
-) => {
-  const response = await api.put(`/guests/${guestId}`, {
-    data: {
-      rsvp: data.rsvp,
-      attending: data.attending,
-    },
-  });
-  return response.data;
-};
+// export const updateGuestRSVP = async (
+//   guestId: number | string,
+//   data: { rsvp: boolean; attending: boolean }
+// ) => {
+//   const response = await api.put(`/guests/${guestId}`, {
+//     data: {
+//       rsvp: data.rsvp,
+//       attending: data.attending,
+//     },
+//   });
+//   return response.data;
+// };
 
 export const submitRSVP = async (data: any) => {
-  const response = await api.post('/rsvps', { data });
+  const response = await api.post('/guests/submit-rsvp', data);
   return response.data;
 };
 
