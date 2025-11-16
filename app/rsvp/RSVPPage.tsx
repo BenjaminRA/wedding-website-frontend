@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { findGuestWithPassword, submitRSVP } from '@/lib/api';
+import Swal from 'sweetalert2';
 import '../../lib/i18n';
 
 interface Guest {
@@ -77,6 +78,12 @@ export default function RSVPPage() {
     }
   };
 
+  const handleBackToSearch = () => {
+    setGuest(null);
+    setError('');
+    setMessage('');
+  };
+
   const handleSubmitRSVP = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -94,15 +101,26 @@ export default function RSVPPage() {
       }));
 
       await submitRSVP({ guests: rsvpData });
-      setMessage(t('rsvp.success'));
-      setTimeout(() => {
-        setGuest(null);
-        setFirstName('');
-        setLastName('');
-        setPassword('');
-        setMessage('');
-        setGuestAttendance({});
-      }, 3000);
+
+      await Swal.fire({
+        title: t('rsvp.success'),
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#2d5f4f',
+        customClass: {
+          popup: 'font-cormorant',
+          title: 'font-playfair text-2xl',
+          confirmButton: 'font-montserrat uppercase tracking-wider',
+        },
+        iconColor: '#2d5f4f',
+      });
+
+      setGuest(null);
+      setFirstName('');
+      setLastName('');
+      setPassword('');
+      setMessage('');
+      setGuestAttendance({});
     } catch (err) {
       setError(t('rsvp.error'));
     }
@@ -186,14 +204,32 @@ export default function RSVPPage() {
             onSubmit={handleSubmitRSVP}
             className="space-y-6"
           >
-            {/* <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg font-cormorant text-lg text-center">
-              {t('rsvp.guestFound')}: {guest.firstName} {guest.lastName}
-            </div> */}
+            <button
+              type="button"
+              onClick={handleBackToSearch}
+              className="flex items-center gap-2 text-forest-green hover:text-forest-green/80 font-montserrat text-sm uppercase tracking-wider font-semibold transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                />
+              </svg>
+              {t('rsvp.backToSearch')}
+            </button>
 
             {guest.guest_group?.groupName && (
               <div className="text-center">
                 <p className="font-montserrat text-sm uppercase tracking-wider text-gray-600">
-                  Group:{' '}
+                  {t('rsvp.party')}:{' '}
                   <span className="font-semibold text-dark">
                     {guest.guest_group.groupName}
                   </span>

@@ -28,7 +28,7 @@ const resources = {
       },
       gallery: {
         title: 'Our Story',
-        subtitle: 'Memories we\'ve shared together',
+        subtitle: "Memories we've shared together",
       },
       venue: {
         title: 'Venue Information',
@@ -50,6 +50,8 @@ const resources = {
         error: 'There was an error processing your RSVP',
         notFound: 'Guest not found or incorrect password',
         passwordError: 'Incorrect password',
+        backToSearch: 'Back to Search',
+        party: 'Party',
       },
       dressCode: {
         title: 'Dress Code',
@@ -109,6 +111,8 @@ const resources = {
         error: 'Hubo un error al procesar tu confirmación',
         notFound: 'Invitado no encontrado o contraseña incorrecta',
         passwordError: 'Contraseña incorrecta',
+        backToSearch: 'Volver a Buscar',
+        party: 'Grupo',
       },
       dressCode: {
         title: 'Código de Vestimenta',
