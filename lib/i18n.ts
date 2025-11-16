@@ -52,6 +52,9 @@ const resources = {
         passwordError: 'Incorrect password',
         backToSearch: 'Back to Search',
         party: 'Party',
+        wishes: 'Wishes for the Couple',
+        wishesDescription: 'Share your thoughts and best wishes',
+        wishesPlaceholder: 'Write your message here...',
       },
       dressCode: {
         title: 'Dress Code',
@@ -113,6 +116,9 @@ const resources = {
         passwordError: 'Contraseña incorrecta',
         backToSearch: 'Volver a Buscar',
         party: 'Grupo',
+        wishes: 'Deseos para la Pareja',
+        wishesDescription: 'Comparte tus pensamientos y mejores deseos',
+        wishesPlaceholder: 'Escribe tu mensaje aquí...',
       },
       dressCode: {
         title: 'Código de Vestimenta',

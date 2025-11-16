@@ -38,6 +38,7 @@ export default function RSVPPage() {
   const [guestAttendance, setGuestAttendance] = useState<
     Record<number, boolean>
   >({});
+  const [wishes, setWishes] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -66,6 +67,7 @@ export default function RSVPPage() {
           });
         }
         setGuestAttendance(initialAttendance);
+        setWishes(response.data.guest_group?.wishes || '');
       } else {
         setError(t('rsvp.notFound'));
       }
@@ -100,7 +102,11 @@ export default function RSVPPage() {
         attending: guestAttendance[g.id] ?? false,
       }));
 
-      await submitRSVP({ guests: rsvpData });
+      await submitRSVP({
+        guests: rsvpData,
+        guest_group_id: guest.guest_group.id,
+        wishes: wishes.trim(),
+      });
 
       await Swal.fire({
         title: t('rsvp.success'),
@@ -121,6 +127,7 @@ export default function RSVPPage() {
       setPassword('');
       setMessage('');
       setGuestAttendance({});
+      setWishes('');
     } catch (err) {
       setError(t('rsvp.error'));
     }
@@ -141,7 +148,31 @@ export default function RSVPPage() {
         </p>
       </div>
 
-      <div className="bg-white p-12 rounded-3xl shadow-lg border border-fobg-forest-green/10">
+      {guest && (
+        <button
+          type="button"
+          onClick={handleBackToSearch}
+          className="flex items-center gap-2 text-forest-green hover:text-forest-green/80 font-montserrat text-sm uppercase tracking-wider font-semibold transition-colors mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+            />
+          </svg>
+          {t('rsvp.backToSearch')}
+        </button>
+      )}
+
+      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-fobg-forest-green/10">
         {!guest ? (
           <form
             onSubmit={handleFindGuest}
@@ -202,55 +233,33 @@ export default function RSVPPage() {
         ) : (
           <form
             onSubmit={handleSubmitRSVP}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <button
-              type="button"
-              onClick={handleBackToSearch}
-              className="flex items-center gap-2 text-forest-green hover:text-forest-green/80 font-montserrat text-sm uppercase tracking-wider font-semibold transition-colors"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-                />
-              </svg>
-              {t('rsvp.backToSearch')}
-            </button>
-
             {guest.guest_group?.groupName && (
-              <div className="text-center">
-                <p className="font-montserrat text-sm uppercase tracking-wider text-gray-600">
-                  {t('rsvp.party')}:{' '}
-                  <span className="font-semibold text-dark">
-                    {guest.guest_group.groupName}
-                  </span>
+              <div className="text-center pb-4 border-b border-gray-200">
+                <p className="font-cormorant text-lg text-gray-600">
+                  {t('rsvp.party')}
+                </p>
+                <p className="font-playfair text-2xl font-semibold text-dark mt-1">
+                  {guest.guest_group.groupName}
                 </p>
               </div>
             )}
 
-            <div className="space-y-6">
-              <label className="block font-montserrat text-sm uppercase tracking-wider text-dark mb-4 font-semibold">
+            <div className="space-y-5">
+              <h3 className="font-montserrat text-xs uppercase tracking-widest text-gray-500 text-center">
                 {t('rsvp.willAttend')}
-              </label>
+              </h3>
 
               {guest.guest_group?.guests &&
                 guest.guest_group.guests.map((groupGuest) => (
                   <div
                     key={groupGuest.id}
-                    className="border border-gray-200 rounded-lg p-4 space-y-3"
+                    className="bg-gray-50 rounded-xl p-5 space-y-3 hover:bg-gray-100 transition-colors"
                   >
                     <div className="font-cormorant text-lg font-semibold text-dark">
                       {groupGuest.firstName} {groupGuest.lastName}
-                      <span className="ml-2 text-sm text-gray-500">
+                      <span className="ml-2 text-sm text-gray-500 font-normal">
                         ({groupGuest.type})
                       </span>
                     </div>
@@ -266,7 +275,7 @@ export default function RSVPPage() {
                         className={`flex-1 px-4 py-3 rounded-lg font-montserrat uppercase tracking-wider text-xs font-semibold transition-all ${
                           guestAttendance[groupGuest.id]
                             ? 'bg-forest-green text-white shadow-lg'
-                            : 'bg-gray-100 text-dark hover:bg-gray-200'
+                            : 'bg-white text-dark hover:bg-gray-50 border border-gray-300'
                         }`}
                       >
                         {t('rsvp.yes')}
@@ -282,7 +291,7 @@ export default function RSVPPage() {
                         className={`flex-1 px-4 py-3 rounded-lg font-montserrat uppercase tracking-wider text-xs font-semibold transition-all ${
                           !guestAttendance[groupGuest.id]
                             ? 'bg-forest-green text-white shadow-lg'
-                            : 'bg-gray-100 text-dark hover:bg-gray-200'
+                            : 'bg-white text-dark hover:bg-gray-50 border border-gray-300'
                         }`}
                       >
                         {t('rsvp.no')}
@@ -290,6 +299,26 @@ export default function RSVPPage() {
                     </div>
                   </div>
                 ))}
+            </div>
+
+            <div className="space-y-3 pt-4 border-t border-gray-200">
+              <label className="block font-montserrat text-xs uppercase tracking-widest text-gray-500 text-center">
+                {t('rsvp.wishes')}
+              </label>
+              <p className="text-center font-cormorant text-sm text-gray-600 italic">
+                {t('rsvp.wishesDescription')}
+              </p>
+              <textarea
+                value={wishes}
+                onChange={(e) => setWishes(e.target.value)}
+                rows={4}
+                // maxLength={500}
+                placeholder={t('rsvp.wishesPlaceholder')}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-green focus:border-transparent font-cormorant text-base resize-none"
+              />
+              {/* <p className="text-right text-xs text-gray-500 font-montserrat">
+                {wishes.length}/500
+              </p> */}
             </div>
 
             {message && (
