@@ -25,24 +25,27 @@ export default function DressCodePage({ dataEn, dataEs }: DressCodePageProps) {
   const content = i18n.language === 'es' ? dataEs : dataEn;
 
   return (
-    <div className="max-w-4xl mx-auto px-8 pb-20">
-      <div className="text-center pt-16 pb-12">
-        <h1 className="font-playfair text-5xl md:text-6xl text-dark mb-4 font-bold tracking-wide">
-          {content?.title || t('dressCode.title')}
-        </h1>
-        <p className="font-cormorant text-xl md:text-2xl text-gray-600 italic">
-          {t('dressCode.subtitle')}
-        </p>
+    <div className="pb-20">
+      <div className="bg-gradient-to-b from-white to-cream">
+        <div className="max-w-4xl mx-auto px-8 text-center pt-16 pb-8">
+          <h1 className="font-playfair text-5xl md:text-6xl text-dark mb-4 font-bold tracking-wide">
+            {content?.title || t('dressCode.title')}
+          </h1>
+          <p className="font-cormorant text-xl md:text-2xl text-gray-600 italic">
+            {t('dressCode.subtitle')}
+          </p>
+        </div>
       </div>
-
-      <div className="bg-white p-12 rounded-3xl shadow-lg border border-sage">
-        {content?.content && <MarkdownRenderer content={content.content} />}
-        {/* {content?.description && (
+      <div className="max-w-4xl mx-auto px-8">
+        <div className="bg-white p-12 rounded-3xl shadow-lg border border-sage">
+          {content?.content && <MarkdownRenderer content={content.content} />}
+          {/* {content?.description && (
           <div
             className="font-cormorant text-xl text-dark leading-relaxed text-center"
             dangerouslySetInnerHTML={{ __html: content.description }}
           />
         )} */}
+        </div>
       </div>
     </div>
   );

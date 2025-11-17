@@ -23,6 +23,7 @@ interface GiftRegion {
   title: string;
   content: string;
   list: GiftItem[];
+  iframe?: string;
 }
 
 interface GiftsPageProps {
@@ -44,6 +45,17 @@ function GiftRegionBox({ region }: GiftRegionBoxProps) {
       {region.content && (
         <div className="mb-8">
           <MarkdownRenderer content={region.content} />
+        </div>
+      )}
+
+      {region.iframe && (
+        <div className="-mx-8 md:-mx-12 mb-8">
+          <iframe
+            src={region.iframe}
+            className="w-full border-0"
+            style={{ minHeight: '900px' }}
+            title={`${region.title} iframe`}
+          />
         </div>
       )}
 
@@ -117,26 +129,29 @@ export default function GiftsPage({ dataEn, dataEs }: GiftsPageProps) {
     i18n.language === 'es' ? ['chile', 'us'] : ['us', 'chile'];
 
   return (
-    <div className="max-w-6xl mx-auto px-8 pb-20">
-      <div className="text-center pt-16 pb-12">
-        <h1 className="font-playfair text-5xl md:text-6xl text-dark mb-4 font-bold tracking-wide">
-          {t('gifts.title')}
-        </h1>
-        <p className="font-cormorant text-xl md:text-2xl text-gray-600 italic">
-          {t('gifts.subtitle')}
-        </p>
+    <div className="pb-20">
+      <div className="bg-gradient-to-b from-white to-cream">
+        <div className="max-w-6xl mx-auto px-8 text-center pt-16 pb-8">
+          <h1 className="font-playfair text-5xl md:text-6xl text-dark mb-4 font-bold tracking-wide">
+            {t('gifts.title')}
+          </h1>
+          <p className="font-cormorant text-xl md:text-2xl text-gray-600 italic">
+            {t('gifts.subtitle')}
+          </p>
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
-        {contentOrder.map(
-          (regionKey) =>
-            content?.[regionKey] && (
-              <GiftRegionBox
-                key={regionKey}
-                region={content[regionKey]}
-              />
-            )
-        )}
+      <div className="max-w-6xl mx-auto px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
+          {contentOrder.map(
+            (regionKey) =>
+              content?.[regionKey] && (
+                <GiftRegionBox
+                  key={regionKey}
+                  region={content[regionKey]}
+                />
+              )
+          )}
+        </div>
       </div>
     </div>
   );

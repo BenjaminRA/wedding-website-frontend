@@ -142,12 +142,12 @@ export default function MarkdownRenderer({
     ),
     tbody: ({ children }) => <tbody className="bg-white">{children}</tbody>,
     tr: ({ children }) => (
-      <tr className="border-b border-sage hover:bg-mist transition-colors">
+      <tr className="border-b border-sage hover:bg-mist transition-colors group">
         {children}
       </tr>
     ),
     th: ({ children }) => (
-      <th className="px-4 py-3 text-left font-semibold text-sm md:text-base">
+      <th className="px-4 py-3 text-left font-semibold text-sm md:text-base group-hover:text-forest-dark group-hover:bg-forest-light transition-colors">
         {children}
       </th>
     ),
@@ -157,16 +157,18 @@ export default function MarkdownRenderer({
 
     // Images
     img: ({ src, alt }) => (
-      <div className="my-6">
+      <span className="block my-6">
         <img
           src={src}
           alt={alt || ''}
           className="rounded-lg shadow-lg max-w-full h-auto border-2 border-mist"
         />
         {alt && (
-          <p className="text-sm text-pine text-center mt-2 italic">{alt}</p>
+          <span className="block text-sm text-pine text-center mt-2 italic">
+            {alt}
+          </span>
         )}
-      </div>
+      </span>
     ),
   };
 

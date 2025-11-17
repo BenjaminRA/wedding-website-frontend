@@ -33,6 +33,7 @@ const resources = {
       venue: {
         title: 'Venue Information',
         subtitle: 'Join us at',
+        viewMap: 'View on Map',
       },
       rsvp: {
         title: 'RSVP',
@@ -97,6 +98,7 @@ const resources = {
       venue: {
         title: 'Información del Lugar',
         subtitle: 'Únete a nosotros en',
+        viewMap: 'Ver en el Mapa',
       },
       rsvp: {
         title: 'Confirmación de Asistencia',
