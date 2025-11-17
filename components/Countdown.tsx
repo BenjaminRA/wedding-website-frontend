@@ -49,8 +49,8 @@ export default function Countdown({ weddingDate }: CountdownProps) {
   const renderCountdownUnit = (value: number, label: string) => (
     <>
       {/* Desktop Countdown */}
-      <div className="hidden md:block bg-white border-2 border-gold rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20">
-        <div className="font-playfair text-5xl md:text-6xl font-bold text-gold leading-none mb-2">
+      <div className="hidden md:block bg-white border-2 border-forest-green rounded-2xl p-8 min-w-[140px] transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-forest-green/20">
+        <div className="font-playfair text-5xl md:text-6xl font-bold text-forest-green leading-none mb-2">
           {value}
         </div>
         <div className="font-montserrat text-sm uppercase tracking-widest text-gray-600 font-medium">
@@ -60,8 +60,8 @@ export default function Countdown({ weddingDate }: CountdownProps) {
 
       {/* Mobile Countdown */}
       <div className="md:hidden flex flex-col items-center gap-2">
-        <div className="bg-white border-2 border-gold rounded-2xl p-2 transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-gold/20 w-[50px]">
-          <div className="font-playfair text-2xl font-bold text-gold leading-none mb-2">
+        <div className="bg-white border-2 border-forest-green rounded-2xl p-2 transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl shadow-forest-green/20 w-[50px]">
+          <div className="font-playfair text-2xl font-bold text-forest-green leading-none mb-2">
             {value}
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function Countdown({ weddingDate }: CountdownProps) {
   );
 
   return (
-    <div className="mt-16 p-12 bg-white/80 backdrop-blur-md rounded-3xl border border-gold/20 shadow-2xl">
+    <div className="mt-16 p-12 bg-white/80 backdrop-blur-md rounded-3xl border border-sage shadow-2xl">
       <h2 className="font-cormorant text-xl md:text-4xl mb-10 text-dark font-semibold italic tracking-wide">
         {t('welcome.countdown')}
       </h2>

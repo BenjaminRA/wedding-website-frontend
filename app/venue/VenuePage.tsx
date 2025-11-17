@@ -34,9 +34,9 @@ export default function VenuePage({ dataEn, dataEs }: VenuePageProps) {
         </p>
       </div>
 
-      <div className="bg-white p-12 rounded-3xl shadow-lg border border-gold/10">
+      <div className="bg-white p-12 rounded-3xl shadow-lg border border-sage">
         {content?.venueName && (
-          <h2 className="font-playfair text-3xl md:text-4xl text-gold mb-6 text-center font-bold">
+          <h2 className="font-playfair text-3xl md:text-4xl text-forest-green mb-6 text-center font-bold">
             {content.venueName}
           </h2>
         )}
@@ -60,7 +60,7 @@ export default function VenuePage({ dataEn, dataEs }: VenuePageProps) {
               href={content.mapLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-gold text-white font-montserrat px-8 py-3 rounded-lg hover:bg-gold/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
+              className="inline-block bg-forest-green text-white font-montserrat px-8 py-3 rounded-lg hover:bg-forest-dark transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
             >
               View on Map
             </a>

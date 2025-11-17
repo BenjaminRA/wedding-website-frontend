@@ -173,7 +173,7 @@ export default function RSVPPage() {
         </button>
       )}
 
-      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-fobg-forest-green/10">
+      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-sage">
         {!guest ? (
           <form
             onSubmit={handleFindGuest}
@@ -188,7 +188,7 @@ export default function RSVPPage() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fobg-forest-green focus:border-transparent font-cormorant text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-green focus:border-transparent font-cormorant text-lg"
               />
             </div>
 
@@ -201,7 +201,7 @@ export default function RSVPPage() {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fobg-forest-green focus:border-transparent font-cormorant text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-green focus:border-transparent font-cormorant text-lg"
               />
             </div>
 
@@ -215,7 +215,7 @@ export default function RSVPPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fobg-forest-green focus:border-transparent font-cormorant text-lg"
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-green focus:border-transparent font-cormorant text-lg"
                 />
                 <button
                   type="button"
@@ -271,7 +271,7 @@ export default function RSVPPage() {
 
             <button
               type="submit"
-              className="w-full bg-forest-green text-white font-montserrat px-8 py-4 rounded-lg hover:bg-forest-green/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
+              className="w-full bg-forest-green text-white font-montserrat px-8 py-4 rounded-lg hover:bg-forest-dark transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
             >
               {t('rsvp.submit')}
             </button>
@@ -381,7 +381,7 @@ export default function RSVPPage() {
 
             <button
               type="submit"
-              className="w-full bg-forest-green text-white font-montserrat px-8 py-4 rounded-lg hover:bg-forest-green/90 transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
+              className="w-full bg-forest-green text-white font-montserrat px-8 py-4 rounded-lg hover:bg-forest-dark transition-colors uppercase tracking-wider text-sm font-semibold shadow-lg"
             >
               {t('rsvp.confirmRSVP')}
             </button>

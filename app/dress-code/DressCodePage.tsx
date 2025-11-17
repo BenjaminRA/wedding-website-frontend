@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../../lib/i18n';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 interface DressCodePageProps {
   dataEn?: any;
@@ -34,13 +35,14 @@ export default function DressCodePage({ dataEn, dataEs }: DressCodePageProps) {
         </p>
       </div>
 
-      <div className="bg-white p-12 rounded-3xl shadow-lg border border-gold/10">
-        {content?.description && (
+      <div className="bg-white p-12 rounded-3xl shadow-lg border border-sage">
+        {content?.content && <MarkdownRenderer content={content.content} />}
+        {/* {content?.description && (
           <div
             className="font-cormorant text-xl text-dark leading-relaxed text-center"
             dangerouslySetInnerHTML={{ __html: content.description }}
           />
-        )}
+        )} */}
       </div>
     </div>
   );
