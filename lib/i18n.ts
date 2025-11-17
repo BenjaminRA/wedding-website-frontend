@@ -56,6 +56,7 @@ const resources = {
         wishes: 'Wishes for the Couple',
         wishesDescription: 'Share your thoughts and best wishes',
         wishesPlaceholder: 'Write your message here...',
+        loading: 'Loading...',
       },
       dressCode: {
         title: 'Dress Code',
@@ -121,6 +122,7 @@ const resources = {
         wishes: 'Deseos para la Pareja',
         wishesDescription: 'Comparte tus pensamientos y mejores deseos',
         wishesPlaceholder: 'Escribe tu mensaje aquí...',
+        loading: 'Cargando...',
       },
       dressCode: {
         title: 'Código de Vestimenta',
