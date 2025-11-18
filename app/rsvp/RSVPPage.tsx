@@ -341,9 +341,9 @@ export default function RSVPPage() {
                     >
                       <div className="font-cormorant text-lg font-semibold text-dark">
                         {groupGuest.firstName} {groupGuest.lastName}
-                        <span className="ml-2 text-sm text-gray-500 font-normal">
+                        {/* <span className="ml-2 text-sm text-gray-500 font-normal">
                           ({groupGuest.type})
-                        </span>
+                        </span> */}
                       </div>
                       <div className="flex gap-3">
                         <button
