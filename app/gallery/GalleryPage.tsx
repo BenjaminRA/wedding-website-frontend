@@ -46,10 +46,10 @@ export default function GalleryPage({ dataEn, dataEs }: GalleryPageProps) {
       </div>
       <div className="max-w-7xl mx-auto px-8">
         {content?.story && (
-          <div className="bg-white p-14 rounded-3xl my-12 max-w-4xl mx-auto leading-8 font-cormorant text-xl text-dark shadow-lg border border-sage relative">
-            <div className="text-8xl text-forest-green opacity-30 leading-none mb-8 font-playfair">
+          <div className="bg-white p-14 rounded-3xl my-12 max-w-4xl mx-auto leading-8 font-montserrat text-xl text-dark shadow-lg border border-sage relative">
+            {/* <div className="text-8xl text-forest-green opacity-30 leading-none mb-8 font-playfair">
               "
-            </div>
+            </div> */}
             <MarkdownRenderer content={content.story} />
           </div>
         )}
