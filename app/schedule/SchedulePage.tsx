@@ -77,7 +77,7 @@ export default function SchedulePage({ dataEn, dataEs }: SchedulePageProps) {
             </div>
           ) : (
             <p className="font-cormorant text-xl text-dark text-center">
-              Schedule coming soon...
+              {t('schedule.noEvents')}
             </p>
           )}
         </div>

@@ -69,6 +69,7 @@ const resources = {
       schedule: {
         title: 'Schedule',
         subtitle: 'Timeline for our special day',
+        noEvents: 'Schedule coming soon...',
       },
     },
   },
@@ -135,6 +136,7 @@ const resources = {
       schedule: {
         title: 'Cronograma',
         subtitle: 'Línea de tiempo para nuestro día especial',
+        noEvents: 'Cronograma próximamente...',
       },
     },
   },
