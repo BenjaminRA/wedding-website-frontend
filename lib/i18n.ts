@@ -69,7 +69,8 @@ const resources = {
       schedule: {
         title: 'Schedule',
         subtitle: 'Timeline for our special day',
-        noEvents: 'Schedule coming soon...',
+        noEvents:
+          'Schedule coming soon... The detailed information is not yet available, but we can share that it will be an afternoon wedding. Stay tuned for more updates!',
       },
     },
   },
@@ -136,7 +137,8 @@ const resources = {
       schedule: {
         title: 'Cronograma',
         subtitle: 'Línea de tiempo para nuestro día especial',
-        noEvents: 'Cronograma próximamente...',
+        noEvents:
+          'Cronograma próximamente... La información detallada aún no está disponible, pero les adelantamos que será una boda en horario de tarde. ¡Estén atentos para más actualizaciones!',
       },
     },
   },
