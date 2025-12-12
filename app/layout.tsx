@@ -32,9 +32,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      translate="no"
+    >
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+        />
+        <meta
+          name="google"
+          content="notranslate"
+        />
       </head>
       <body
         className={`${playfair.variable} ${cormorant.variable} ${montserrat.variable} antialiased`}
