@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { findGuestWithPassword, submitRSVP } from '@/lib/api';
 import Swal from 'sweetalert2';
 import '../../lib/i18n';
+import VeganIcon from './VeganIcon';
+import VegetarianIcon from './VegetarianIcon';
+import GlutenFreeIcon from './GlutenFreeIcon';
+import NutAllergyIcon from './NutAllergyIcon';
 
 interface Guest {
   id: number;
@@ -15,6 +19,7 @@ interface Guest {
   country: string;
   rsvp: boolean;
   attending: boolean | null;
+  dietaryRestrictions?: string[];
 }
 
 interface GuestGroup {
@@ -37,6 +42,9 @@ export default function RSVPPage() {
   const [guest, setGuest] = useState<GuestData | null>(null);
   const [guestAttendance, setGuestAttendance] = useState<
     Record<number, boolean>
+  >({});
+  const [guestDietaryRestrictions, setGuestDietaryRestrictions] = useState<
+    Record<number, string[]>
   >({});
   const [wishes, setWishes] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -64,12 +72,15 @@ export default function RSVPPage() {
         setGuest(response.data);
         // Initialize attendance state for all guests in the group
         const initialAttendance: Record<number, boolean> = {};
+        const initialDietaryRestrictions: Record<number, string[]> = {};
         if (response.data.guest_group?.guests) {
           response.data.guest_group.guests.forEach((g: Guest) => {
             initialAttendance[g.id] = g.attending ?? false;
+            initialDietaryRestrictions[g.id] = g.dietaryRestrictions || [];
           });
         }
         setGuestAttendance(initialAttendance);
+        setGuestDietaryRestrictions(initialDietaryRestrictions);
         setWishes(response.data.guest_group?.wishes || '');
       } else {
         setError(t('rsvp.notFound'));
@@ -106,6 +117,7 @@ export default function RSVPPage() {
         documentId: g.documentId,
         rsvp: true,
         attending: guestAttendance[g.id] ?? false,
+        dietaryRestrictions: guestDietaryRestrictions[g.id] || [],
       }));
 
       await submitRSVP({
@@ -133,6 +145,7 @@ export default function RSVPPage() {
       setPassword('');
       setMessage('');
       setGuestAttendance({});
+      setGuestDietaryRestrictions({});
       setWishes('');
     } catch (err) {
       setError(t('rsvp.error'));
@@ -379,6 +392,54 @@ export default function RSVPPage() {
                           {t('rsvp.no')}
                         </button>
                       </div>
+                      {guestAttendance[groupGuest.id] && (
+                        <div className="space-y-2 pt-2">
+                          <label className="block font-montserrat text-xs uppercase tracking-wider text-gray-600">
+                            {t('rsvp.dietaryRestrictions') ||
+                              'Dietary Restrictions'}
+                          </label>
+                          <div className="space-y-2">
+                            {[
+                              { name: 'Vegan', Icon: VeganIcon },
+                              { name: 'Vegetarian', Icon: VegetarianIcon },
+                              { name: 'Gluten Free', Icon: GlutenFreeIcon },
+                              { name: 'Nut Allergy', Icon: NutAllergyIcon },
+                            ].map(({ name, Icon }) => {
+                              const isSelected = (
+                                guestDietaryRestrictions[groupGuest.id] || []
+                              ).includes(name);
+                              return (
+                                <button
+                                  key={name}
+                                  type="button"
+                                  onClick={() => {
+                                    setGuestDietaryRestrictions((prev) => {
+                                      const current = prev[groupGuest.id] || [];
+                                      const newRestrictions = isSelected
+                                        ? current.filter((r) => r !== name)
+                                        : [...current, name];
+                                      return {
+                                        ...prev,
+                                        [groupGuest.id]: newRestrictions,
+                                      };
+                                    });
+                                  }}
+                                  className={`w-full px-4 py-2 rounded-lg font-montserrat uppercase tracking-wider text-xs font-semibold transition-all flex items-center gap-3 ${
+                                    isSelected
+                                      ? 'bg-forest-green text-white shadow-md'
+                                      : 'bg-white text-dark hover:bg-gray-50 border border-gray-300'
+                                  }`}
+                                >
+                                  <Icon className="w-5 h-5" />
+                                  {t(
+                                    `rsvp.dietary${name.replace(/\s+/g, '')}`
+                                  ) || name}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
               </div>

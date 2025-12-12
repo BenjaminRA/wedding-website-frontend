@@ -57,6 +57,11 @@ const resources = {
         wishesDescription: 'Share your thoughts and best wishes',
         wishesPlaceholder: 'Write your message here...',
         loading: 'Loading...',
+        dietaryRestrictions: 'Dietary Restrictions',
+        dietaryVegan: 'Vegan',
+        dietaryVegetarian: 'Vegetarian',
+        dietaryGlutenFree: 'Gluten Free',
+        dietaryNutAllergy: 'Nut Allergy',
       },
       dressCode: {
         title: 'Dress Code',
@@ -125,6 +130,11 @@ const resources = {
         wishesDescription: 'Comparte tus pensamientos y mejores deseos',
         wishesPlaceholder: 'Escribe tu mensaje aquí...',
         loading: 'Cargando...',
+        dietaryRestrictions: 'Restricciones Alimentarias',
+        dietaryVegan: 'Vegano',
+        dietaryVegetarian: 'Vegetariano',
+        dietaryGlutenFree: 'Sin Gluten',
+        dietaryNutAllergy: 'Alergia a Frutos Secos',
       },
       dressCode: {
         title: 'Código de Vestimenta',
